@@ -600,6 +600,12 @@ class CertificateService:
             return False
 
 
+def list_media_files(request):
+    media_files = os.listdir(os.path.join(
+        settings.MEDIA_ROOT, 'certificate_templates'))
+    return JsonResponse({'files': media_files})
+
+
 def get_language(request):
     return request.session.get('language', 'ru')
 
