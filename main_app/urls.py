@@ -1,10 +1,11 @@
 from django.urls import path
 from main_app import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'main_app'
 
 urlpatterns = [
-    # Existing URLs
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('reports/', views.reports, name='reports'),
@@ -24,6 +25,10 @@ urlpatterns = [
          views.certificate_status, name='certificate_status'),
     path('api/certificate/<str:certificate_id>/download/',
          views.download_certificate, name='download_certificate'),
-
-
+    path('api/list-media-files/', views.list_media_files, name='list_media_files'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
